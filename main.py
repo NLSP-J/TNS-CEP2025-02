@@ -1,5 +1,7 @@
 import pygame as pg
 import random, time
+import asyncio
+
 pg.init()
 clock = pg.time.Clock()
 
@@ -16,20 +18,20 @@ score = 0
 lives=3
 player_size = 80
 player_pos = [win_width / 2, win_height - player_size]  # 400, 600-40
-player_image = pg.image.load('C:/MyFiles/pyproj/pygame_env/TNS/TNS-02/jar')
+player_image = pg.image.load('./assets/images/jar')
 player_image = pg.transform.scale(player_image, (player_size, player_size))  # 40,40
 
 obj_size = 40
 obj_data = []     # List to store object positions and their images
-obj = pg.image.load('C:/MyFiles/pyproj/pygame_env/TNS/TNS-02/star')
+obj = pg.image.load('./assets/images/star')
 obj = pg.transform.scale(obj, (obj_size, obj_size))
 
 enemy_size = 50
 enemy_data = []     # List to store object positions and their images
-enemy = pg.image.load('C:/MyFiles/pyproj/pygame_env/TNS/TNS-02/ice')
+enemy = pg.image.load('./assets/images/ice')
 enemy = pg.transform.scale(enemy, (enemy_size, enemy_size))
 
-bg_image = pg.image.load('C:/MyFiles/pyproj/pygame_env/TNS/TNS-02/images.jfif')
+bg_image = pg.image.load('./assets/images/images.jfif')
 bg_image = pg.transform.scale(bg_image, (win_width, win_height))
 
 
@@ -94,7 +96,7 @@ def collision_check(obj_data, enemy_data, player_pos):
             enemy_data.remove(object)
             score -= 1
               
-def main():
+async def main():
 
     global player_pos
 
@@ -140,5 +142,6 @@ def main():
 
         clock.tick(35)
         pg.display.update()
+        await asyncio.sleep(0)
 
-main()
+asyncio.run(main())
